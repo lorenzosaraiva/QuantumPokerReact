@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from 'react';
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import login from "./login";
+import Login from "./login";
 import game from "./game";
+import { useHistory } from 'react-router'
+
+
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -17,13 +21,23 @@ import game from "./game";
 // making sure things like the back button and bookmarks
 // work properly.
 
+import useToken from './useToken';
+
 export default function BasicExample() {
+  const { token, setToken } = useToken();
+  const history = useHistory()
+  console.log(history)
+  console.log(token)
+  if(!token) {
+    return <Login setToken={setToken} history={history} />
+  }
+
   return (
     <Router>
       <div>
         <ul>
           <li>
-            <Link to="/">Login</Link>
+            <Link to="/profile">Profile</Link>
           </li>
           <li>
             <Link to="/game">Game</Link>
@@ -41,10 +55,13 @@ export default function BasicExample() {
         */}
         <Switch>
           <Route exact path="/">
-            <Login />
+           <div>Quantum poker</div>
           </Route>
           <Route path="/game">
-            <Game />
+            <Game history={history}/>
+          </Route>
+          <Route path="/profile">
+            <Profile history={history}/>
           </Route>
         </Switch>
       </div>
@@ -55,12 +72,11 @@ export default function BasicExample() {
 // You can think of these components as "pages"
 // in your app.
 
-function Login() {
-  return login()
-}
 
 function Game() {
   return game()
 }
 
-
+function Profile() {
+  return (<p>Profile</p>)
+}
