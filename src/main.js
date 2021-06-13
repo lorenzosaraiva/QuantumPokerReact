@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
 import Login from "./login";
-import game from "./game";
+import Game from "./game";
+import TableList from "./table_list";
+import Docs from "./docs"
 import { useHistory } from 'react-router'
 
 
@@ -22,27 +23,34 @@ import { useHistory } from 'react-router'
 // work properly.
 
 import useToken from './useToken';
+import { useLocation } from 'react-router-dom'
 
-export default function BasicExample() {
+export default function QuantumPoker() {
   const { token, setToken } = useToken();
   const history = useHistory()
-  console.log(history)
-  console.log(token)
+  const location = useLocation();
+
+  //console.log(history)
+  //console.log(token)
+
   if(!token) {
     return <Login setToken={setToken} history={history} />
   }
 
+  const current = location.pathname
+
   return (
-    <Router>
+    
       <div>
-        <ul>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/game">Game</Link>
-          </li>
-        </ul>
+        {current}
+        <div className="tabs is-centered">  
+          <ul>
+            <li className={current === "/profile" ? "is-active" : ""}><Link to="/profile">Profile</Link>        </li>
+            <li className={current === "/game" ? "is-active" : ""}><Link to="/game">Game</Link>       </li>
+            <li className={current === "/table_list" ? "is-active" : ""}><Link to="/table_list">Tables</Link></li>
+            <li className={current === "/docs" ? "is-active" : ""}><Link to="/docs">Rules</Link></li>
+            </ul>
+        </div>
 
         <hr />
 
@@ -58,14 +66,19 @@ export default function BasicExample() {
            <div>Quantum poker</div>
           </Route>
           <Route path="/game">
-            <Game history={history}/>
+            <Game history={history} token={token}/>
           </Route>
           <Route path="/profile">
             <Profile history={history}/>
           </Route>
+          <Route path="/table_list">
+            <TableList history={history} token={token}/>
+          </Route>
+          <Route path="/docs">
+            <Docs history={history} token={token}/>
+          </Route>
         </Switch>
       </div>
-    </Router>
   );
 }
 
@@ -73,9 +86,6 @@ export default function BasicExample() {
 // in your app.
 
 
-function Game() {
-  return game()
-}
 
 function Profile() {
   return (<p>Profile</p>)

@@ -18,34 +18,34 @@ export default function Login(props) {
 			})
 			.then(data => data.json())
 		props.setToken(token.access_token);
-		props.history.go(0)
+		//props.history.go(0)
 	}
 
     return (
-<div class="columns is-centered">
-	<div class="column is-half">
-    	<h1 class="title">QUANTUM POKER</h1>
-		<form class="box" ref={form} onSubmit={handleSubmit}>
+<div className="columns is-centered">
+	<div className="column is-half">
+    	<h1 className="title">QUANTUM POKER</h1>
+		<form className="box" ref={form} onSubmit={handleSubmit}>
 		<input type="hidden" name="grant_type" value="password	" />
 		<input type="hidden" name="scope" value="" />
 		<input type="hidden" name="client_id" value="" />
 		<input type="hidden" name="client_secret" value="" />
 
-		<div class="field">
-			<label class="label">Email</label>
-			<div class="control">
-			    <input class="input" placeholder="e.g. username" name="username" defaultValue={username} onChange={e => setUserName(e.target.value)}/>
+		<div className="field">
+			<label className="label">Email</label>
+			<div className="control">
+			    <input className="input" placeholder="e.g. username" name="username" defaultValue={username} onChange={e => setUserName(e.target.value)}/>
 			</div>
 		</div>
 
-		<div class="field">
-			<label class="label">Password</label>
-			<div class="control">
-			<input class="input" type="password" placeholder="********" name="password" defaultValue={password} onChange={e => setPassword(e.target.value)}/>
+		<div className="field">
+			<label className="label">Password</label>
+			<div className="control">
+			<input className="input" type="password" placeholder="********" name="password" defaultValue={password} onChange={e => setPassword(e.target.value)}/>
 			</div>
 		</div>
 
-		<button class="button is-primary">Sign in</button>
+		<button className="button is-primary">Sign in</button>
 		</form>
   	</div>
 </div>
