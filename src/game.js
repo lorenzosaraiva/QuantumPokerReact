@@ -15,120 +15,100 @@ export default function Game(props) {
 
 	//var url = "https://quantum-poker.herokuapp.com/"
 	var url = "http://127.0.0.1:8000/"
-	var headers = {}
+	var headers = new Headers({
+		'Authorization': 'Bearer ' + props.token,
+		'Content-Type': 'application/x-www-form-urlencoded'
+	})
 	
+	async function fetch_json(endpoint){
+		var obj = await fetch(url + endpoint, { headers: headers })
+		var json = await obj.json()
+		return json
+	}
+	async function fetch_text(endpoint){
+		var obj = await fetch(url + endpoint, { headers: headers })
+		var json = await obj.text()
+		return json
+	}
+
 	async function find_table() {
-		var table = await fetch(url + "find_table/", { headers: headers })
-		var json = await table.json()
-		return json
+		var table = await fetch_json("find_table")
+		setTable(table)
+		return table
 	}
 
-	async function get_player() {
-		var player = await fetch(url + "player/", { headers: headers })
-		var json = await player.json()
-		return json
-	}
-
-	async function get_table() {
-		var table = await fetch(url + "table")
-		var json = await table.json()
-		return json
-	}
 	
 	async function main() {
 
-		var player = await get_player()
+		var player = await fetch_json("player")
 		setCurrentPlayer(player)
 
-		var table = await get_table()
+		var table = await fetch_json("table")
 		setTable(table)
 
 	}
 
-	async function restart_hand() {
-		var answer = await (await fetch(url + "restart_hand/")).text()
+	async function action(endpoint){
+		var answer = await fetch_text(endpoint)
 		setLog(log + answer + "\n")
-		await main()
+		return await main()
+	}
+	async function restart_hand() {
+		return await action("restart_hand/")
 	}
 
 	async function check() {
-		var answer = await (await fetch(url + "check/", { headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("check/")
 	}
 
 	async function call() {
-		var answer = await (await fetch(url + "call/", { headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("call/")
 	}
 
 	async function raise_bet() {
 		//var bet = document.getElementById("bet").value
-		var answer = await (await fetch(url + "raise_bet/", {headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("raise_bet/")
 	}
 
 	async function fold() {
-		var answer = await (await fetch(url + "fold/", { headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("fold/")
 	}
 
 	async function quantum_draw1() {
-		var answer = await (await fetch(url + "quantum_draw1/", { headers: headers })).text()
-		setLog(log + answer + "\n")
-		await main()
+		return await action("quantum_draw1/")
 	}
 
 	async function quantum_draw2() {
-		var answer = await (await fetch(url + "quantum_draw2/", { headers: headers })).text()
-		setLog(log + answer + "\n")
-		await main()
+		return await action("quantum_draw2/")
 	}
 
 	async function entangle1() {
-		var answer = await (await fetch(url + "entangle1/", { headers: headers })).text()
-		setLog(log + answer + "\n")
-		await main()
+		return await action("entangle1/")
 	}
 
 	async function entangle2() {
-		var answer = await (await fetch(url + "entangle2/", { headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("entangle2/")
 	}
 
 	async function entangle_diff_1_2() {
-		var answer = await (await fetch(url + "entangle_diff_1_2/", { headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("entangle_diff_1_2/")
 	}
 
 	async function entangle_diff_2_1() {
-		var answer = await (await fetch(url + "entangle_diff_2_1/", { headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("entangle_diff_2_1/")
 	}
 
 	async function top_up() {
-		var answer = await (await fetch(url + "top_up/", { headers: headers })).text()
-		setLog(log + answer + "\n");
-		await main()
+		return await action("top_up/")
 	}
 
-	useEffect(() => {
-		headers = new Headers({
-			'Authorization': 'Bearer ' + props.token,
-			'Content-Type': 'application/x-www-form-urlencoded'
-		})
-		//main()
-		//setInterval(main, 1000)
-	})
-
+	
+	if (table === undefined){
+		return (<div>
+					<button className="button" type="submit" onClick={find_table} name='fndtblbtn'>EnterTable</button>
+				</div>)
+	}
 	return (<div>
-		
 		<div className="columns">
 			<div className="column">
 				<Table table={table}/>
@@ -170,7 +150,6 @@ export default function Game(props) {
 					<div>
 						<button className="button" type="submit" onClick={restart_hand} name='restartbtn'>Restart</button>
 						<button className="button" type="submit" onClick={top_up} name='topupbtn'>Top Up</button>
-						<button className="button" type="submit" onClick={find_table} name='fndtblbtn'>EnterTable</button>
 
 					</div>	
 				</div>

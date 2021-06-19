@@ -9,6 +9,7 @@ import Login from "./login";
 import Game from "./game";
 import TableList from "./table_list";
 import Docs from "./docs"
+import Profile from "./profile"
 import { useHistory } from 'react-router'
 
 
@@ -42,7 +43,6 @@ export default function QuantumPoker() {
   return (
     
       <div>
-        {current}
         <div className="tabs is-centered">  
           <ul>
             <li className={current === "/profile" ? "is-active" : ""}><Link to="/profile">Profile</Link>        </li>
@@ -87,6 +87,3 @@ export default function QuantumPoker() {
 
 
 
-function Profile() {
-  return (<p>Profile</p>)
-}

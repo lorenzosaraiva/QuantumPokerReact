@@ -18,7 +18,7 @@ export default function Login(props) {
 			})
 			.then(data => data.json())
 		props.setToken(token.access_token);
-		//props.history.go(0)
+		props.history.go(0)
 	}
 
     return (

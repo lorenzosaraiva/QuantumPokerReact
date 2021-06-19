@@ -12,6 +12,8 @@ export default function Info(props) {
     let card2 = []
     var player = props.player
     var table = props.table
+    
+    console.log(props.table?.current_player)
     if (player && table){
         if (player.diff_ent === 0){
             player.card1_active.forEach(card => {
@@ -46,9 +48,11 @@ export default function Info(props) {
        
 
         players = []
-        table.all_players.forEach(player => {
+        for (const [username, player] of Object.entries(table.all_players)){
+            console.log(username)
             players.push(<PlayerStatus player={{number:player.number, stack: player.stack}} key = {player.number}/>)
-        });
+
+        }
 
         if (player.number === table.current_player && table.current_player !== undefined ){
             turntag = <span className="tag is-primary is-rounded">Your turn!</span>
@@ -63,9 +67,9 @@ export default function Info(props) {
     return <div id = "table_div">
 	Pot: {props.table?.pot} <br/>
 	Dealer: {props.table?.dealer} <br/> 
-    You are player {player?.number} {turntag}<br/>
-	Active player is {props.table?.current_player} <br/>
-    To call: {props.table?.players_to_call[player?.number]} <br/>
+    You are player {player?.id} {turntag}<br/>
+	Active player is {table?.current_player} <br/>
+    To call: {player?.to_call} <br/>
     {players}
         <div className="columns">
             <div className="column is-half">
