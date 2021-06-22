@@ -9,7 +9,7 @@ export default function Game(props) {
 	const [log, setLog] = useState("")
 	const [current_player, setCurrentPlayer] = useState()
 	const [table, setTable] = useState()
-	//const [raise_amount, setRaise] = useState()
+	const [raise_amount, setRaise] = useState()
 
 	//console.log("Game")
 
@@ -65,8 +65,8 @@ export default function Game(props) {
 		return await action("call/")
 	}
 
-	async function raise_bet() {
-		//var bet = document.getElementById("bet").value
+	async function raise_bet(value) {
+		console.log(raise_amount)
 		return await action("raise_bet/")
 	}
 
@@ -101,8 +101,7 @@ export default function Game(props) {
 	async function top_up() {
 		return await action("top_up/")
 	}
-
-	
+		
 	if (table === undefined){
 		return (<div>
 					<button className="button" type="submit" onClick={find_table} name='fndtblbtn'>EnterTable</button>
@@ -120,7 +119,7 @@ export default function Game(props) {
 				<Info player={current_player} table={table}/>
 			</div>
 			<div className="column">
-				<div className = "block">
+				<div className = "block">		
 					<div>
 						<button className="button is-danger" type="submit" onClick={raise_bet} name='raisebtn'>Raise</button>
 						<input className="input" type="number" defaultValue = {0} ></input>

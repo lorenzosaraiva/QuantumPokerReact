@@ -13,7 +13,6 @@ export default function Info(props) {
     var player = props.player
     var table = props.table
     
-    console.log(props.table?.current_player)
     if (player && table){
         if (player.diff_ent === 0){
             player.card1_active.forEach(card => {
@@ -48,8 +47,7 @@ export default function Info(props) {
        
 
         players = []
-        for (const [username, player] of Object.entries(table.all_players)){
-            console.log(username)
+        for (const [, player] of Object.entries(table.all_players)){
             players.push(<PlayerStatus player={{number:player.number, stack: player.stack}} key = {player.number}/>)
 
         }
