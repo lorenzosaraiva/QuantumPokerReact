@@ -3,7 +3,8 @@ import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Info from "./info"
 import Table from "./table"
 
-var url = "http://127.0.0.1:8000/"
+//var url = "http://127.0.0.1:8000/"
+var url = "https://quantum-poker.herokuapp.com/"
 
 async function fetch_json(endpoint, headers){
 	var obj = await fetch(url + endpoint, { headers: headers })
@@ -20,7 +21,7 @@ export default function Game(props) {
 
 
 
-	//var url = "https://quantum-poker.herokuapp.com/"
+
 	var headers = useMemo(()=>new Headers({
 		'Authorization': 'Bearer ' + props.token,
 		'Content-Type': 'application/x-www-form-urlencoded'
