@@ -14,7 +14,7 @@ export default function Game(props) {
 
 	useEffect(() => {
 		setInterval(main, 2000)
-	}, [])
+	}, [main])
 
 	//var url = "https://quantum-poker.herokuapp.com/"
 	var url = "http://127.0.0.1:8000/"
