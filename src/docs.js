@@ -130,11 +130,11 @@ drawing random cards from the deck. A quick example: Player has two cards:
 
 <p>
 If the player Quantum Draw on the 4♡, the card that was a 4♡ will become a sum of possibilities of the original
-4♡ and a new card, picked randomly, lets say a 3 ♠. His card 4♡ \ 3 ♠, which 1/2 of chance for each. So his hand
+4♡ and a new card, picked randomly, lets say a 3 ♠. His card becomes (4♡ \ 3 ♠), with 1/2 of chance for each. So his hand
 would become: 
 </p>
 <p>
-(\frac{1}{2} 4♡ + \frac{1}{2} 3♠)  5 ♢
+(<sup>1</sup>&frasl;<sub>2</sub> 4♡ + <sup>1</sup>&frasl;<sub>2</sub> 3♠)  5 ♢
 </p>
 <p>
 The card will remain a superposition until the showdown, when the final card value is picked at random. 
@@ -144,14 +144,14 @@ Draw on the same card again, it would double again the possibilities, leaving th
 </p>
 
 <p> 
-(\frac{1}{4} 4♡ + \frac{1}{4} 3♠ + \frac{1}{4} A♠ + \frac{1}{4} J♢)  5 ♢
-\newline \newline
+(<sup>1</sup>&frasl;<sub>4</sub> 4♡ + <sup>1</sup>&frasl;<sub>4</sub> 3♠ + <sup>1</sup>&frasl;<sub>4</sub> A♠ + <sup>1</sup>&frasl;<sub>4</sub> J♢)  5 ♢
+
 </p>
 <p>
 The player could Quantum Draw again, this time on the 5 ♢, leaving their hand like this:
 </p>
 <p>
-(\frac{1}{4} 4♡ + \frac{1}{4} 3♠ + \frac{1}{4} A♠ + \frac{1}{4} J♢)  (\frac{1}{2} 5 ♢ + \frac{1}{2} K♡)
+(<sup>1</sup>&frasl;<sub>4</sub> 4♡ + <sup>1</sup>&frasl;<sub>4</sub> 3♠ + <sup>1</sup>&frasl;<sub>4</sub> A♠ + <sup>1</sup>&frasl;<sub>4</sub> J♢)  (<sup>1</sup>&frasl;<sub>2</sub> 5 ♢ + <sup>1</sup>&frasl;<sub>2</sub> K♡)
 </p>
 <p>
 This hand, in the showdown, could become any possible combination of the two cards, in a total of 8 options:
@@ -178,14 +178,14 @@ you will swap half of the possibilities for new ones. Thus, to entangle, you nee
 the card. From the following hand:
 </p>
 <p>
-(\frac{1}{2} 4♡ + \frac{1}{2} 3♠)  5 ♢ 
+(<sup>1</sup>&frasl;<sub>2</sub> 4♡ + <sup>1</sup>&frasl;<sub>2</sub> 3♠)  5 ♢ 
 </p>
 <p>
 You can't choose do a same card entangle is the second card yet, since it has only 1 possibility.
 If we do a same card entangle on the first card, it will swap one of the possibilities with a new one:
 </p>
 <p>
-(\frac{1}{2} 4♡ + \frac{1}{2} Q♣)  5 ♢ 
+(<sup>1</sup>&frasl;<sub>2</sub> 4♡ + <sup>1</sup>&frasl;<sub>2</sub> Q♣)  5 ♢ 
 </p>
 <p>
 This seems a totally random process, but you have the information of which possibilities will be swapped out. 
@@ -210,32 +210,47 @@ will behave in the described way. In the shown example, the card state goes from
 <p>To: </p>
 <p>00 - 4♡</p>
 <p>11 - Q♣</p>
-Since the two digits are entangled, they will share the same value, so 01 and 10 - which correspond to the 3♠ and another card, whose value is never known by the player - are discarded. This is strategically important because the player knows the value of each card. Every card value corresponds to the order it appeared, written in binary. The first card is 0, the second is 1, the third is 01, the fourth 10, and so forth. It is important to note that 0s added to the left don't change the value, so as more digits are added, 1 becomes 01, then 001, 0001 and 00001. In the shown example, the player knows that 0 is the 4♡ and 1 is the 3♠, so they also know that, if they entangle on that same card, the 3 ♠ - that corresponds to the 01 binary string - will be the one discarded. This gives the player a bit of control over the randomness of the Quantum Actions.
+<p>Since the two digits are entangled, they will share the same value, so 01 and 10 - which correspond to the 3♠ and another card,
+    whose value is never known by the player - are discarded. This is strategically important because the player knows the value of each card. 
+    Every card value corresponds to the order it appeared, written in binary. The first card is 0, the second is 1, the third is 01, the fourth
+    10, and so forth. It is important to note that 0s added to the left don't change the value, so as more digits are added, 1 becomes 01, then 
+    001, 0001 and 00001. In the shown example, the player knows that 0 is the 4♡ and 1 is the 3♠, so they also know that, if they entangle on that
+    same card, the 3 ♠ - that corresponds to the 01 binary string - will be the one discarded. This gives the player a bit of control over the
+    randomness of the Quantum Actions.</p>
 
 <h6 className ="subtitle is-6">Different Card Entangle</h6>
 <p>
-The different card entangle has the same principle of the same card entangle - to force two digits to have the same value. But this time, each digit is from a different card. First, you pick the origin card, and chose which digit is going to be entangled. We shall follow and example. The player hand is: \newline \newline
+The different card entangle has the same principle of the same card entangle - to force two digits to have the same value. But this time, each digit
+is from a different card. First, you pick the origin card, and chose which digit is going to be entangled. We shall follow and example. The player 
+hand is:    
 </p>
-(\frac{1}{4} 4♡ + \frac{1}{4} 3♠ + \frac{1}{4} A♠ + \frac{1}{4} J♢)  5 ♢ \newline \newline
-The first card has four current options, that means its corresponding binary string has two active digits, with the following possible options: \newline \newline
+(<sup>1</sup>&frasl;<sub>4</sub> 4♡ + <sup>1</sup>&frasl;<sub>4</sub> 3♠ + <sup>1</sup>&frasl;<sub>4</sub> A♠ + <sup>1</sup>&frasl;<sub>4</sub> J♢)  5 ♢    
+<p>The first card has four current options, that means its corresponding binary string has two active digits, with the following possible options:</p>    
 <p>00 - 4♡</p> 
 <p>01 - 3♠</p> 
 <p>10 - A♠</p> 
 <p>11 - J♢</p> 
-The second card, on the other hand, is still on the initial state, so its binary string is empty and there is only one possibility. The player could pick any of the digits from the first card to entangle with the target digit, in this case, a new one on the second card. This won't rule out any possible card outcome by itself, it will rule out card combinations. If the first digit is the origin, the player will have the following possible hand combinations, assuming K ♢ is the randomly drawn card: \newline \newline
-(\frac{1}{2} 4♡ + \frac{1}{2} 3♠) 5♢  \newline \newline
-(\frac{1}{2} A♠ + \frac{1}{2} J♢) K♢  \newline \newline
-With 1/2 chance for each. Or, already taking that chance into account: \newline \newline
-\frac{1}{4} 4♡ 5♢ \newline \newline
-\frac{1}{4} 3♠ 5♢ \newline \newline
-\frac{1}{4} A♠ K♢ \newline \newline
-\frac{1}{4} J♢ K♢ \newline \newline
-To illustrate a bit more the Entangle, if the player had chosen instead to entangle the second digit from the first card, his hand would have the following possibilities: \newline \newline
-\frac{1}{4} 4♡ 5♢ \newline \newline
-\frac{1}{4} A♠ 5♢ \newline \newline
-\frac{1}{4} 3♠ K♢ \newline \newline
-\frac{1}{4} J♢ K♢ \newline \newline
-A small, but significant change. The player already knew beforehand that, had if he chooses the second digit, that the 4♡ and A♠ were to be matched with the current card, the 5 ♢, and the 3 ♠ and J ♢ would be matched with the new one, yet do be drawn. 
+<p>The second card, on the other hand, is still on the initial state, so its binary string is empty and there is only one possibility. 
+    The player could pick any of the digits from the first card to entangle with the target digit, in this case, a new one on the second
+    card. This won't rule out any possible card outcome by itself, it will rule out card combinations. If the first digit is the origin, 
+    the player will have the following possible hand combinations, assuming K ♢ is the randomly drawn card:    
+    </p>
+<p>(<sup>1</sup>&frasl;<sub>2</sub> 4♡ + <sup>1</sup>&frasl;<sub>2</sub> 3♠) 5♢</p>
+<p>(<sup>1</sup>&frasl;<sub>2</sub> A♠ + <sup>1</sup>&frasl;<sub>2</sub> J♢) K♢</p>
+<p>With 1/2 chance for each. Or, already taking that chance into account:</p>
+<p><sup>1</sup>&frasl;<sub>4</sub> 4♡ 5♢</p>    
+<p><sup>1</sup>&frasl;<sub>4</sub> 3♠ 5♢</p>    
+<p><sup>1</sup>&frasl;<sub>4</sub> A♠ K♢</p>    
+<p><sup>1</sup>&frasl;<sub>4</sub> J♢ K♢</p>    
+<p>To illustrate a bit more the Entangle, if the player had chosen instead to entangle the second digit from the first card, his hand would have
+   the following possibilities:    </p>
+<p><sup>1</sup>&frasl;<sub>4</sub> 4♡ 5♢</p>
+<p><sup>1</sup>&frasl;<sub>4</sub> A♠ 5♢</p>
+<p><sup>1</sup>&frasl;<sub>4</sub> 3♠ K♢</p>
+<p><sup>1</sup>&frasl;<sub>4</sub> J♢ K♢</p>
+<p>A small, but significant change. The player already knew beforehand that, had if he chooses the second digit, that the 4♡ and A♠ were to be
+    matched with the current card, the 5 ♢, and the 3 ♠ and J ♢ would be matched with the new one, yet do be drawn. 
+</p>
 
 <h6 className ="subtitle is-6">Cost of Quantum Actions</h6>
 <p>

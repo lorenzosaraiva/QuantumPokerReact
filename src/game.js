@@ -7,11 +7,14 @@ import Table from "./table"
 
 export default function Game(props) {
 	const [log, setLog] = useState("")
+	const [full_log, setFullLog] = useState("")
 	const [current_player, setCurrentPlayer] = useState()
 	const [table, setTable] = useState()
-	const [raise_amount, setRaise] = useState()
+	const [raise_amount, setRaise] = useState(0)
 
-	//console.log("Game")
+	useEffect(() => {
+		setInterval(main, 2000)
+	}, [])
 
 	//var url = "https://quantum-poker.herokuapp.com/"
 	var url = "http://127.0.0.1:8000/"
@@ -46,6 +49,9 @@ export default function Game(props) {
 		var table = await fetch_json("table")
 		setTable(table)
 
+		if (table !== null){
+			setFullLog(table.log)
+		}
 	}
 
 	async function action(endpoint){
@@ -67,7 +73,7 @@ export default function Game(props) {
 
 	async function raise_bet(value) {
 		console.log(raise_amount)
-		return await action("raise_bet/")
+		return await action("raise_bet?amount=" + raise_amount)
 	}
 
 	async function fold() {
@@ -111,48 +117,50 @@ export default function Game(props) {
 		<div className="columns">
 			<div className="column">
 				<Table table={table}/>
-				<div className="columns">
-			<div className="column">
-				<textarea readOnly id="log" name="log" rows="10" cols="50" value={log} />
-			</div>
-			<div className="column">
-				<Info player={current_player} table={table}/>
-			</div>
-			<div className="column">
-				<div className = "block">		
-					<div>
-						<button className="button is-danger" type="submit" onClick={raise_bet} name='raisebtn'>Raise</button>
-						<input className="input" type="number" defaultValue = {0} ></input>
-					</div>
-					<br />
-					<div>
-						<button className="button" type="submit" onClick={check} name='checkbtn'>Check</button>
-						<button className="button" type="submit" onClick={call} name='callbtn'>Call</button>
-						<button className="button" type="submit" onClick={fold} name='foldbtn'>Fold</button>
-					</div>
-					<br />
-					<div>
-						<button className="button" type="submit" onClick={quantum_draw1} name='qd1btn'>Quantum Draw Card 1</button>
-						<button className="button" type="submit" onClick={quantum_draw2} name='qd2btn'>Quantum Draw Card 2</button>
-					</div>
-					<br />
-					<div>
-						<button className="button" type="submit" onClick={entangle1} name='etg1btn'>Entangle Same Card 1</button>
-						<button className="button" type="submit" onClick={entangle2} name='etg2btn'>Entangle Same Card 2</button>
-					</div>
-					<br />
-					<div>
-						<button className="button" type="submit" onClick={entangle_diff_1_2} name='etgd1btn'>Entangle Diff 1 to 2</button>
-						<button className="button" type="submit" onClick={entangle_diff_2_1} name='etgd2btn'>Entangle Diff 2 to 1</button>
-					</div>
-					<br />
-					<div>
-						<button className="button" type="submit" onClick={restart_hand} name='restartbtn'>Restart</button>
-						<button className="button" type="submit" onClick={top_up} name='topupbtn'>Top Up</button>
+			<div className="columns">
+				<div className="column">
+					<textarea readOnly id="log" name="log" rows="10" cols="50" value={log} />
+					<textarea readOnly id="fulllog" name="fulllog" rows="10" cols="50" value={full_log} />
 
-					</div>	
 				</div>
+				<div className="column">
+					<Info player={current_player} table={table}/>
 				</div>
+				<div className="column">
+					<div className = "block">		
+						<div>
+							<button className="button is-danger" type="submit" onClick={raise_bet} name='raisebtn'>Raise</button>
+							<input className="input" type="number" value = {raise_amount} onChange = {(e)=>setRaise(e.target.value)} ></input>
+						</div>
+						<br />
+						<div>
+							<button className="button" type="submit" onClick={check} name='checkbtn'>Check</button>
+							<button className="button" type="submit" onClick={call} name='callbtn'>Call</button>
+							<button className="button" type="submit" onClick={fold} name='foldbtn'>Fold</button>
+						</div>
+						<br />
+						<div>
+							<button className="button" type="submit" onClick={quantum_draw1} name='qd1btn'>Quantum Draw Card 1</button>
+							<button className="button" type="submit" onClick={quantum_draw2} name='qd2btn'>Quantum Draw Card 2</button>
+						</div>
+						<br />
+						<div>
+							<button className="button" type="submit" onClick={entangle1} name='etg1btn'>Entangle Same Card 1</button>
+							<button className="button" type="submit" onClick={entangle2} name='etg2btn'>Entangle Same Card 2</button>
+						</div>
+						<br />
+						<div>
+							<button className="button" type="submit" onClick={entangle_diff_1_2} name='etgd1btn'>Entangle Diff 1 to 2</button>
+							<button className="button" type="submit" onClick={entangle_diff_2_1} name='etgd2btn'>Entangle Diff 2 to 1</button>
+						</div>
+						<br />
+						<div>
+							<button className="button" type="submit" onClick={restart_hand} name='restartbtn'>Restart</button>
+							<button className="button" type="submit" onClick={top_up} name='topupbtn'>Top Up</button>
+
+						</div>	
+					</div>
+					</div>
 				</div>
 			</div>
 		</div>
