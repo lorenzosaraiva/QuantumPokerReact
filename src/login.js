@@ -1,15 +1,15 @@
 import React, { useState, useRef } from 'react';
 
 
-	
-
+var url = "https://quantum-poker.herokuapp.com/token"
+//var url = "http://localhost:8000/token"
 export default function Login(props) {
 	const [username, setUserName] = useState();
 	const [password, setPassword] = useState();
 	const form = useRef(null)
 	const handleSubmit = async e => {
 		e.preventDefault();
-		const token = await fetch('http://localhost:8000/token', {
+		const token = await fetch(url, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
