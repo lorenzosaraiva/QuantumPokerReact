@@ -1,16 +1,9 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 import Info from "./info"
 import Table from "./table"
 
-//var url = "http://127.0.0.1:8000/"
-var url = "https://quantum-poker.herokuapp.com/"
 
-async function fetch_json(endpoint, headers){
-	var obj = await fetch(url + endpoint, { headers: headers })
-	var json = await obj.json()
-	return json
-}
 
 export default function Game(props) {
 	const [log, setLog] = useState("")
@@ -19,15 +12,22 @@ export default function Game(props) {
 	const [table, setTable] = useState()
 	const [raise_amount, setRaise] = useState(0)
 
+	useEffect(() => {
+		setInterval(main, 2000)
+	}, [])
 
-
-
-	var headers = useMemo(()=>new Headers({
+	var url = "https://quantum-poker.herokuapp.com/"
+	//var url = "http://127.0.0.1:8000/"
+	var headers = new Headers({
 		'Authorization': 'Bearer ' + props.token,
 		'Content-Type': 'application/x-www-form-urlencoded'
-	}), [props]
-	)
-
+	})
+	
+	async function fetch_json(endpoint){
+		var obj = await fetch(url + endpoint, { headers: headers })
+		var json = await obj.json()
+		return json
+	}
 	async function fetch_text(endpoint){
 		var obj = await fetch(url + endpoint, { headers: headers })
 		var json = await obj.text()
@@ -40,24 +40,19 @@ export default function Game(props) {
 		return table
 	}
 
-	const main = useCallback(
-		async () => {
-			var player = await fetch_json("player", headers)
-			setCurrentPlayer(player)
 	
-			var table = await fetch_json("table", headers)
-			setTable(table)
-	
-			if (table !== null){
-				setFullLog(table.log)
-			}
-		},
-		[setCurrentPlayer, setTable, setFullLog, headers],
-	  );
+	async function main() {
 
-	useEffect(() => {
-		setInterval(main, 2000)
-	}, [main])
+		var player = await fetch_json("player")
+		setCurrentPlayer(player)
+
+		var table = await fetch_json("table")
+		setTable(table)
+
+		if (table !== null){
+			setFullLog(table.log)
+		}
+	}
 
 	async function action(endpoint){
 		var answer = await fetch_text(endpoint)
